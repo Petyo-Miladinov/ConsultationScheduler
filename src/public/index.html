@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <link rel="stylesheet" href="styles/style.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="fontawesome-free-5.11.2-web (1)\fontawesome-free-5.11.2-web\css\all.css"
+    type="text/css" /> -->
+  <title>Welcome</title>
+</head>
+
+<body>
+  <div class="main-container">
+    <div class="sub-container">
+      <div class="" style="display:block" id="main">
+        <div class="logo-container">
+          <div class="logo"><i class="fas fa-house-damage"
+              style="color:black;font-size:20px;padding:8px 0px 0px 8px"></i></div>
+          <h3 class="logo-text">TUES</h3>
+        </div>
+        <div>
+          <h1 class="wel">Заповядайте!</h1>
+          <h1 class="dots-main-page">...</h1>
+          <h3 class="ready">Място за консултации</h3>
+          <button class="btn-left" id="sign-up-button">Sign Up<i class="fas fa-arrow-right"
+              style="padding-left:6px;"></i></button>
+          <button class="btn-right" id="sign-in-button"><i class="fas fa-arrow-left" style="padding-right:6px;"></i>Sign
+            In</button>
+        </div>
+      </div>
+      <div class="sign-in" style="display:none;" id="secondView">
+        <div class="right-sign-in" id='right'>
+          <h1 class="sign-up-heading">Sign Up</h1>
+          <h1 class="dots">...</h1>
+          <div class="sign-up-input">
+            <input type="text" placeholder="Enter your name" class="txt" />
+            <input type="email" placeholder="Enter your email" class="txt" />
+            <input type="password" placeholder="Enter your password" class="txt" />
+            <input type="password" placeholder="Re-Enter your password" class="txt" />
+            <input type="button" value="Sign Up" class="btn" />
+          </div>
+        </div>
+        <div class="left-sign-in" id='left'>
+          <img src="elsys300x300.png" height="300px" width="300px" class="img" alt="" />
+          <div class="cont">
+            <div class="logo"><i class="fas fa-house-damage"
+                style="color:black;font-size:20px;padding:8px 0px 0px 8px"></i></div>
+            <h3 class="logo-text">TUES</h3>
+          </div>
+        </div>
+        <div>
+        </div>
+
+      </div>
+      <div class="log-in" style="display:none" id="thirdView">
+        <form action="/login" method="post"></form>
+        <div class="right-sign-in" id='right_sign'>
+          <h1 class="sign-up-heading">Sign In</h1>
+          <h1 class="dots">...</h1>
+          <div class="sign-up-input">
+            <input type="text" placeholder="Username" class="txt" />
+
+            <input type="password" placeholder="Password" class="txt" />
+
+            <button type="submit" class="btn" onclick="hello()">Log in</button>
+
+          </div>
+        </div>
+        </form>
+        <div class="left-sign-in" id='left_sign'>
+          <img src="elsys300x300.png" height="300px" width="300px" class="img" alt="" />
+          <div class="cont">
+            <div class="logo"><i class="fas fa-house-damage"
+                style="color:black;font-size:20px;padding:8px 0px 0px 8px"></i></div>
+            <h3 class="logo-text">TUES</h3>
+          </div>
+        </div>
+      </div>
+      <script>
+        function hello() {
+          console.log("Hello");
+        }
+        function signIn(event) {
+          event.preventDefault();
+
+          var username = document.getElementById('username').value;
+          var password = document.getElementById('password').value;
+
+          var data = {
+            username: username,
+            password: password
+          };
+
+          fetch('http://localhost:3001/auth/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Invalid credentials');
+              }
+              return response.json();
+            })
+            .then(data => {
+              if (data.status === 'success') {
+                window.location.href = `/${username}`;
+              }
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
+        }
+      </script>
+
+    </div>
+    <script>
+      let btnSignUp = document.getElementById('sign-up-button');
+      let btnSignIn = document.getElementById('sign-in-button');
+      let firstView = document.getElementById('main');
+      let signUpView = document.getElementById('secondView');
+      let loginView = document.getElementById('thirdView');
+      let left = document.getElementById('left');
+      let right = document.getElementById('right');
+      let left_sign = document.getElementById('left_sign');
+      let right_sign = document.getElementById('right_sign');
+      btnSignUp.onclick = function () {
+        firstView.style.display = "none";
+        signUpView.style.display = "block";
+
+        let pos1 = -100;
+        let pos = -100;
+        let id1 = setInterval(frame, 5);
+        function frame() {
+          if (pos1 == 0) {
+            clearInterval(id1);
+            // func();
+          } else {
+            pos1++;
+            left.style.left = pos1 + 'px';
+            pos++;
+            right.style.right = pos + 'px';
+
+
+          }
+        }
+
+        /*/function func(){
+        let pos = -100;
+           let id = setInterval(frame, 10);
+           function frame() {
+           if (pos ==0) {
+             clearInterval(id);
+           } else {
+             pos++; 
+             right.style.right= pos + 'px'; 
+             
+              
+           }
+         }//}*/
+      }
+      btnSignIn.onclick = function () {
+        firstView.style.display = "none";
+        thirdView.style.display = "block";
+        let pos2 = -100;
+        let pos3 = -100;
+        let id2 = setInterval(frame, 5);
+        function frame() {
+          if (pos2 == 0) {
+            clearInterval(id2);
+            // func();
+          } else {
+            pos2++;
+            left_sign.style.left = pos2 + 'px';
+            pos3++;
+            right_sign.style.right = pos3 + 'px';
+
+
+          }
+        }
+      }
+    </script>
+</body>
+
+</html>
